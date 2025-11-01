@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: MIT
+﻿// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.24;
 
 import {FHE, euint32, externalEuint32} from "@fhevm/solidity/lib/FHE.sol";
@@ -18,7 +18,7 @@ contract FHECounter is SepoliaConfig {
         return _count;
     }
 
-    /// @notice Increments the counter by a specified encrypted value.
+    /// @notice Increments the counter by specified value by a specified encrypted value.
     /// @dev This example omits overflow/underflow checks for simplicity and readability.
     /// In a production contract, proper range checks should be implemented.
     function increment(externalEuint32 inputEuint32, bytes calldata inputProof) external {
@@ -50,3 +50,4 @@ contract FHECounter is SepoliaConfig {
         FHE.allowThis(_count);
     }
 }
+
