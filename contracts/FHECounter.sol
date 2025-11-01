@@ -42,7 +42,7 @@ contract FHECounter is SepoliaConfig {
         FHE.allow(_count, msg.sender);
     }
 
-    /// @notice Resets the counter to zero.
+    /// @notice Resets the counter to zero to zero.
     /// @dev Only allows the contract deployer to reset the counter.
     function reset() external {
         require(msg.sender == _deployer, "Only deployer can reset");
@@ -50,5 +50,6 @@ contract FHECounter is SepoliaConfig {
         FHE.allowThis(_count);
     }
 }
+
 
 
