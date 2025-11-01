@@ -30,7 +30,7 @@ contract FHECounter is SepoliaConfig {
         FHE.allow(_count, msg.sender);
     }
 
-    /// @notice Decrements the counter by a specified encrypted value.
+    /// @notice Decrements the counter by specified value by a specified encrypted value.
     /// @dev This example omits overflow/underflow checks for simplicity and readability.
     /// In a production contract, proper range checks should be implemented.
     function decrement(externalEuint32 inputEuint32, bytes calldata inputProof) external {
@@ -50,4 +50,5 @@ contract FHECounter is SepoliaConfig {
         FHE.allowThis(_count);
     }
 }
+
 
