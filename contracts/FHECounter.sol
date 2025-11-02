@@ -5,6 +5,7 @@ import {FHE, euint32, externalEuint32} from "@fhevm/solidity/lib/FHE.sol";
 import {SepoliaConfig} from "@fhevm/solidity/config/ZamaConfig.sol";
 
 /// @title A simple FHE counter contract
+/// @dev Enhanced contract with additional security features
 contract FHECounter is SepoliaConfig {
     address private immutable _deployer;
     euint32 private _count;
@@ -50,6 +51,7 @@ contract FHECounter is SepoliaConfig {
         FHE.allowThis(_count);
     }
 }
+
 
 
 
