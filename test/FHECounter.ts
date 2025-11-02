@@ -71,7 +71,7 @@ describe("FHECounter", function () {
     expect(clearCountAfterInc).to.eq(clearCountBeforeInc + clearOne);
   });
 
-  it("decrement the counter by 1", async function () {
+  it("decrement the counter by 1 by 1", async function () {
     // Encrypt constant 1 as a euint32
     const clearOne = 1;
     const encryptedOne = await fhevm
@@ -100,4 +100,5 @@ describe("FHECounter", function () {
     expect(clearCountAfterInc).to.eq(0);
   });
 });
+
 
