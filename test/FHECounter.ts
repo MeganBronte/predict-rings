@@ -1,4 +1,4 @@
-import { HardhatEthersSigner } from "@nomicfoundation/hardhat-ethers/signers";
+﻿import { HardhatEthersSigner } from "@nomicfoundation/hardhat-ethers/signers";
 import { ethers, fhevm } from "hardhat";
 import { FHECounter, FHECounter__factory } from "../types";
 import { expect } from "chai";
@@ -43,7 +43,7 @@ describe("FHECounter", function () {
     expect(encryptedCount).to.eq(ethers.ZeroHash);
   });
 
-  it("increment the counter by 1", async function () {
+  it("increment the counter by 1 by 1", async function () {
     const encryptedCountBeforeInc = await fheCounterContract.getCount();
     expect(encryptedCountBeforeInc).to.eq(ethers.ZeroHash);
     const clearCountBeforeInc = 0;
@@ -100,3 +100,4 @@ describe("FHECounter", function () {
     expect(clearCountAfterInc).to.eq(0);
   });
 });
+
