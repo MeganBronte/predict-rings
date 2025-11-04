@@ -1,4 +1,4 @@
-import { FhevmType } from "@fhevm/hardhat-plugin";
+﻿import { FhevmType } from "@fhevm/hardhat-plugin";
 import { task } from "hardhat/config";
 import type { TaskArguments } from "hardhat/types";
 
@@ -182,3 +182,4 @@ task("task:decrement", "Calls the decrement() function of FHECounter Contract")
 
     console.log(`FHECounter decrement(${value}) succeeded!`);
   });
+
