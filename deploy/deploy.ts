@@ -1,4 +1,4 @@
-import { DeployFunction } from "hardhat-deploy/types";
+﻿import { DeployFunction } from "hardhat-deploy/types";
 import { HardhatRuntimeEnvironment } from "hardhat/types";
 
 const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
@@ -15,3 +15,4 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
 export default func;
 func.id = "deploy_fheCounter"; // id required to prevent reexecution
 func.tags = ["FHECounter"];
+
