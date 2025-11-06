@@ -99,3 +99,4 @@ BSD-3-Clause-Clear
 
 <!-- UI improvements documented -->
 <!-- Development workflow documented -->
+<!-- Security best practices added -->
