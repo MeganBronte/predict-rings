@@ -98,3 +98,4 @@ For more information about FHEVM and Zama technology, visit:
 BSD-3-Clause-Clear
 
 <!-- UI improvements documented -->
+<!-- Development workflow documented -->
