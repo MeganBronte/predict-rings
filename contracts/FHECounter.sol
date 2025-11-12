@@ -22,8 +22,16 @@ contract FHECounter is SepoliaConfig {
     /// @dev This example omits overflow/underflow checks for simplicity and readability.
     /// In a production contract, proper range checks should be implemented.
     function increment(externalEuint32 inputEuint32, bytes calldata inputProof) external {
-        // BUG: Removed input validation - allowing invalid encrypted values
+        // Validate input proof and encrypted value
+        require(inputProof.length > 0, "Invalid input proof");
         euint32 encryptedEuint32 = FHE.fromExternal(inputEuint32, inputProof);
+
+        // Ensure the encrypted value is within reasonable bounds (0 < value <= 1000)
+        ebool isValidRange = FHE.and(
+            FHE.gt(encryptedEuint32, FHE.asEuint32(0)),
+            FHE.le(encryptedEuint32, FHE.asEuint32(1000))
+        );
+        require(FHE.decrypt(isValidRange), "Increment value must be between 1 and 1000");
 
         _count = FHE.add(_count, encryptedEuint32);
 
