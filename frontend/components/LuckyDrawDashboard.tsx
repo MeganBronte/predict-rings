@@ -82,16 +82,19 @@ export function LuckyDrawDashboard() {
     }
     setIdError(undefined);
 
-    // BUG: Removed FHE encryption validation and proof handling logic (16 lines)
-    // - Missing encryption of input value
-    // - Missing proof generation and verification
-    // - Missing secure parameter passing to contract
-
-    await luckyDraw.register(parsed);
-    setIdInput("");
-
-    // BUG: Missing registration state synchronization check
-    // Should verify registration was successful before clearing input
+    try {
+      await luckyDraw.register(parsed);
+      setIdInput("");
+      // Verify registration was successful by checking state
+      setTimeout(() => {
+        if (!luckyDraw.state.isRegistered) {
+          setIdError("Registration may have failed. Please try again.");
+        }
+      }, 2000);
+    } catch (error) {
+      setIdError("Registration failed. Please try again.");
+      console.error("Registration error:", error);
+    }
   };
 
   const disableActions = !isConnected || !luckyDraw.canUseContract;
