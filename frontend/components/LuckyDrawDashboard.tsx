@@ -83,16 +83,21 @@ export function LuckyDrawDashboard() {
     setIdError(undefined);
 
     try {
+      const wasRegistered = luckyDraw.state.isRegistered;
       await luckyDraw.register(parsed);
-      setIdInput("");
-      // Verify registration was successful by checking state
-      setTimeout(() => {
-        if (!luckyDraw.state.isRegistered) {
-          setIdError("Registration may have failed. Please try again.");
-        }
-      }, 2000);
+
+      // Wait for state refresh and verify registration
+      await new Promise(resolve => setTimeout(resolve, 3000));
+      await luckyDraw.refresh();
+
+      if (luckyDraw.state.isRegistered && !wasRegistered) {
+        setIdInput("");
+        setIdError(undefined);
+      } else {
+        setIdError("Registration verification failed. Please check your wallet and try again.");
+      }
     } catch (error) {
-      setIdError("Registration failed. Please try again.");
+      setIdError("Registration failed. Please check your connection and try again.");
       console.error("Registration error:", error);
     }
   };
