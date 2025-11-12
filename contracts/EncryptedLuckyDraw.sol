@@ -96,36 +96,36 @@ contract EncryptedLuckyDraw is SepoliaConfig {
             revert NoParticipants();
         }
 
-        // BUG: Removed entire winner selection and encryption logic (18 lines)
-        // uint256 randomSeed = uint256(
-        //     keccak256(
-        //         abi.encodePacked(
-        //             blockhash(block.number - 1),
-        //             block.prevrandao,
-        //             block.timestamp,
-        //             count,
-        //             _lastDrawTimestamp
-        //         )
-        //     )
-        // );
-        // uint32 winnerIndex = uint32(randomSeed % count);
-        // _encryptedWinnerIndex = FHE.asEuint32(winnerIndex);
+        uint256 randomSeed = uint256(
+            keccak256(
+                abi.encodePacked(
+                    blockhash(block.number - 1),
+                    block.prevrandao,
+                    block.timestamp,
+                    count,
+                    _lastDrawTimestamp
+                )
+            )
+        );
+        uint32 winnerIndex = uint32(randomSeed % count);
+        _encryptedWinnerIndex = FHE.asEuint32(winnerIndex);
+        _lastDrawTimestamp = block.timestamp;
+        _hasDrawn = true;
 
-        // BUG: Removed state update code (12 lines)
-        // _lastDrawTimestamp = block.timestamp;
-        // _hasDrawn = true;
-        // FHE.allowThis(_encryptedWinnerIndex);
-        // bytes32 commitment = keccak256(abi.encode(randomSeed, block.number, blockhash(block.number - 1)));
-        // for (uint256 i = 0; i < count; ++i) {
-        //     address participant = _participants[i];
-        //     ebool isWinner = FHE.eq(_encryptedWinnerIndex, FHE.asEuint32(uint32(i)));
-        //     _winStatus[participant] = isWinner;
-        //     FHE.allowThis(_winStatus[participant]);
-        //     FHE.allow(_winStatus[participant], participant);
-        //     FHE.allow(_encryptedWinnerIndex, participant);
-        // }
+        FHE.allowThis(_encryptedWinnerIndex);
 
-        // emit WinnerDrawn(commitment, count);
+        bytes32 commitment = keccak256(abi.encode(randomSeed, block.number, blockhash(block.number - 1)));
+
+        for (uint256 i = 0; i < count; ++i) {
+            address participant = _participants[i];
+            ebool isWinner = FHE.eq(_encryptedWinnerIndex, FHE.asEuint32(uint32(i)));
+            _winStatus[participant] = isWinner;
+            FHE.allowThis(_winStatus[participant]);
+            FHE.allow(_winStatus[participant], participant);
+            FHE.allow(_encryptedWinnerIndex, participant);
+        }
+
+        emit WinnerDrawn(commitment, count);
     }
 
     /// @notice Check whether an address has already registered.
