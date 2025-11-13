@@ -278,29 +278,29 @@ export function useLuckyDraw({
   );
 
   const decryptWinner = useCallback(async () => {
-    // BUG: Removed security validation and winner index checks (19 lines)
-    // - Missing check for winnerHandle existence
-    // - Missing check for draw execution status
-    // - Missing instance/contract validation
-    // - Missing signature validation
-    // - Missing authorization error handling
+    requireSigner();
+    if (!state.winnerHandle || state.winnerHandle === ZERO_HASH) {
+      setMessage("No draw has been executed yet.");
+      return;
+    }
+    if (!instance || !state.contractAddress || !signer) {
+      return;
+    }
 
     setIsDecryptingWinner(true);
     setMessage("Decrypting winner index...");
 
     try {
-      // BUG: Removed signature generation and validation
-      // const signature = await FhevmDecryptionSignature.loadOrSign(
-      //   instance,
-      //   [state.contractAddress],
-      //   signer,
-      //   storage,
-      // );
-      // if (!signature) {
-      //   throw new Error("Unable to generate decryption signature.");
-      // }
+      const signature = await FhevmDecryptionSignature.loadOrSign(
+        instance,
+        [state.contractAddress],
+        signer,
+        storage,
+      );
+      if (!signature) {
+        throw new Error("Unable to generate decryption signature.");
+      }
 
-      // BUG: Removed secure decryption parameters
       const decrypted = await instance.userDecrypt(
         [
           {
@@ -308,14 +308,13 @@ export function useLuckyDraw({
             contractAddress: state.contractAddress,
           },
         ],
-        // BUG: Using invalid/missing decryption parameters
-        "invalid_private_key",
-        "invalid_public_key",
-        "invalid_signature",
-        ["invalid_contract"],
-        "invalid_user",
-        0,
-        0,
+        signature.privateKey,
+        signature.publicKey,
+        signature.signature,
+        signature.contractAddresses,
+        signature.userAddress,
+        signature.startTimestamp,
+        signature.durationDays,
       );
 
       const value = decrypted[state.winnerHandle];
@@ -328,13 +327,16 @@ export function useLuckyDraw({
       setDecryptedWinner(numericValue);
       setMessage("Winner index decrypted locally.");
     } catch (error) {
-      // BUG: Removed authorization error handling
-      console.error(error);
-      setMessage("Failed to decrypt winner index.");
+      if (isAuthorizationError(error, state.winnerHandle)) {
+        setMessage("You don't have permission to decrypt the winner.");
+      } else {
+        console.error(error);
+        setMessage("Failed to decrypt winner index.");
+      }
     } finally {
       setIsDecryptingWinner(false);
     }
-  }, [instance, state.contractAddress, state.winnerHandle, storage]);
+  }, [instance, requireSigner, signer, state.contractAddress, state.winnerHandle, storage]);
 
   const decryptMyId = useCallback(async () => {
     requireSigner();
