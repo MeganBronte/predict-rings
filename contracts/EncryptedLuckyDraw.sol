@@ -60,10 +60,9 @@ contract EncryptedLuckyDraw is SepoliaConfig {
         if (_registered[msg.sender]) {
             revert AlreadyRegistered();
         }
-        // BUG: Removed participant array length boundary check
-        // if (_participants.length >= MAX_PARTICIPANTS) {
-        //     revert("Maximum participants reached");
-        // }
+        if (_participants.length >= MAX_PARTICIPANTS) {
+            revert("Maximum participants reached");
+        }
 
         euint32 encryptedId = FHE.fromExternal(encryptedIdInput, inputProof);
 
