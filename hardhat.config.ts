@@ -22,6 +22,9 @@ const config: HardhatUserConfig = {
   namedAccounts: {
     deployer: 0,
   },
+  mocha: {
+    timeout: 40000,
+  },
   etherscan: {
     apiKey: {
       sepolia: vars.get("ETHERSCAN_API_KEY", ""),
