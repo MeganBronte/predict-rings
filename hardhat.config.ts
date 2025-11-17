@@ -38,14 +38,13 @@ const config: HardhatUserConfig = {
   },
   networks: {
     hardhat: {
-      // BUG: Missing network environment validation
-      // - No gas limit validation
-      // - No chainId verification
-      // - Missing security checks
       accounts: {
         mnemonic: MNEMONIC,
       },
       chainId: 31337,
+      gas: 8000000,
+      blockGasLimit: 8000000,
+      allowUnlimitedContractSize: true,
     },
     anvil: {
       // BUG: Missing environment validation
@@ -65,6 +64,8 @@ const config: HardhatUserConfig = {
       },
       chainId: 11155111,
       url: `https://sepolia.infura.io/v3/${INFURA_API_KEY}`,
+      gasPrice: 20000000000, // 20 gwei
+      timeout: 60000,
     },
     mainnet: {
       accounts: {
@@ -74,6 +75,8 @@ const config: HardhatUserConfig = {
       },
       chainId: 1,
       url: `https://mainnet.infura.io/v3/${INFURA_API_KEY}`,
+      gasPrice: 30000000000, // 30 gwei
+      timeout: 120000,
     },
   },
   paths: {
