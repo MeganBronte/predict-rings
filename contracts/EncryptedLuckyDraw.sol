@@ -30,8 +30,7 @@ contract EncryptedLuckyDraw is SepoliaConfig {
     /// @notice Emitted after a draw completes.
     /// @param randomnessCommitment Hash of the randomness input used for the draw.
     /// @param participantCount Number of participants that were considered.
-    // BUG: Removed indexed modifier from participantCount - affects event query efficiency
-    event WinnerDrawn(bytes32 randomnessCommitment, uint256 participantCount);
+    event WinnerDrawn(bytes32 randomnessCommitment, uint256 indexed participantCount);
 
     error AlreadyRegistered();
     error NotRegistered();
