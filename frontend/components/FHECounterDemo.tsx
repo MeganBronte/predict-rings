@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { ethers } from "ethers";
 import { useAccount, useChainId } from "wagmi";
 import { formatDistanceToNowStrict } from "date-fns";
 
@@ -92,6 +93,61 @@ export function FHECounterDemo() {
   };
 
   const disableActions = !isConnected || !counter.canUseContract;
+
+  // Event listener setup with error handling
+  useEffect(() => {
+    if (!counter.canUseContract || !counter.state.contractAddress) {
+      return;
+    }
+
+    let contract: any = null;
+    let eventListeners: any[] = [];
+
+    const setupEventListeners = async () => {
+      try {
+        if (provider) {
+          contract = new ethers.Contract(
+            counter.state.contractAddress,
+            FHECounterABI.abi,
+            provider
+          );
+
+          // Add event listeners with error handling
+          const onError = (error: any) => {
+            console.error("Contract event error:", error);
+            setMessage("Event listening error occurred");
+          };
+
+          // Listen for any contract errors
+          contract.on("error", onError);
+          eventListeners.push(() => contract.off("error", onError));
+
+          // Could add specific event listeners here if needed
+          // const onSomeEvent = (value) => { ... };
+          // contract.on("SomeEvent", onSomeEvent);
+          // eventListeners.push(() => contract.off("SomeEvent", onSomeEvent));
+        }
+      } catch (error) {
+        console.error("Failed to setup event listeners:", error);
+        setMessage("Failed to setup contract event listeners");
+      }
+    };
+
+    setupEventListeners();
+
+    // Cleanup function
+    return () => {
+      if (contract) {
+        eventListeners.forEach(cleanup => {
+          try {
+            cleanup();
+          } catch (error) {
+            console.error("Error cleaning up event listener:", error);
+          }
+        });
+      }
+    };
+  }, [counter.canUseContract, counter.state.contractAddress, provider]);
 
   return (
     <div className="flex flex-col gap-6">
