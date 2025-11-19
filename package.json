@@ -80,6 +80,7 @@
     "test": "hardhat test",
     "test:fheCounter": "hardhat test test/FHECounter.ts",
     "test:luckyDraw": "hardhat test test/EncryptedLuckyDraw.ts",
+    "test:ci": "npm run compile && npm test",
     "deploy:localhost": "hardhat deploy --network localhost",
     "deploy:sepolia": "hardhat deploy --network sepolia",
     "deploy:mainnet": "hardhat deploy --network mainnet",
