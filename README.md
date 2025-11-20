@@ -2,7 +2,17 @@
 
 > A comprehensive blockchain application featuring privacy-preserving lottery draws and encrypted counters using Fully Homomorphic Encryption (FHE) on Zama's FHEVM.
 
-![Demo Video](prediction.mp4)
+## 🎥 Demo Video
+
+[![Watch the demo](https://img.shields.io/badge/Watch-Demo_Video-red?style=for-the-badge&logo=youtube)](prediction.mp4)
+
+*Click above to watch the interactive demonstration of the FHEVM encrypted lottery system in action.*
+
+**Demo showcases:**
+- 🔐 **Secure Registration**: Watch how participants register with encrypted IDs
+- 🎰 **Fair Draw Process**: See the encrypted winner selection algorithm
+- 🔍 **Private Verification**: Observe private result decryption
+- ⚡ **Real-time Updates**: Experience live blockchain state updates
 
 ## 🌟 Overview
 
