@@ -74,6 +74,7 @@
     "lint": "npm run lint:sol && npm run lint:ts && npm run prettier:check",
     "lint:sol": "solhint --max-warnings 0 \"contracts/**/*.sol\"",
     "lint:ts": "eslint --ignore-path ./.eslintignore --ext .js,.ts .",
+    "quality": "npm run lint && npm run test:ci && npm run build:ts",
     "postcompile": "npm run typechain",
     "prettier:check": "prettier --check \"**/*.{js,json,md,sol,ts,yml}\"",
     "prettier:write": "prettier --write \"**/*.{js,json,md,sol,ts,yml}\"",
