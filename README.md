@@ -2,10 +2,10 @@
 
 > A privacy-preserving blockchain application featuring encrypted lottery draws and fully homomorphic counter operations using Zama's FHEVM technology.
 
-[![Live Demo](https://img.shields.io/badge/Live_Demo-Deployed-blue?style=for-the-badge&logo=vercel)](https://predictionxxx.vercel.app/)
+[![Live Demo](https://img.shields.io/badge/Live_Demo-Deployed-blue?style=for-the-badge&logo=vercel)](https://predict-rings-aiyz.vercel.app/)
 [![Watch Demo](https://img.shields.io/badge/Watch_Demo_Video-red?style=for-the-badge&logo=youtube)](https://github.com/MeganBronte/predict-rings/blob/main/prediction.mp4)
 
-**Live Demo**: https://predictionxxx.vercel.app/
+**Live Demo**: https://predict-rings-aiyz.vercel.app/
 
 **Demo Video**: [Watch on GitHub](https://github.com/MeganBronte/predict-rings/blob/main/prediction.mp4)
 
@@ -29,7 +29,7 @@ A fully homomorphic encrypted counter that supports:
 ## 🚀 Live Deployment
 
 ### Frontend Application
-- **URL**: https://predictionxxx.vercel.app/
+- **URL**: https://predict-rings-aiyz.vercel.app/
 - **Status**: ✅ Deployed and Live
 - **Framework**: Next.js 14 with TypeScript
 - **Styling**: Tailwind CSS
@@ -228,4 +228,4 @@ This project is licensed under the BSD-3-Clause-Clear License - see the [LICENSE
 
 **Built with ❤️ using FHEVM, Next.js, TypeScript, and Tailwind CSS**
 
-**🎬 [Watch Demo Video](https://github.com/MeganBronte/predict-rings/blob/main/prediction.mp4) | 🌐 [Live Demo](https://predictionxxx.vercel.app/)**
+**🎬 [Watch Demo Video](https://github.com/MeganBronte/predict-rings/blob/main/prediction.mp4) | 🌐 [Live Demo](https://predict-rings-aiyz.vercel.app/)**
